@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 
-import Liked from './like';
+
 import Pagination from './Pagination'
+import MoviesTable from './moviesTable'
 import ListGroup from './ListGroup'
 import { paginate } from '../utils/pagination';
 import { getGenres } from '../services/fakeGenreService';
-// import Movie from './Movies';
 class Movie extends Component {
     state = { 
         // Movie1 : getMovies(),
@@ -83,6 +83,8 @@ this.setState({ Movie1: getMovies(), genres });
             {/* <h3>this Number of of movies is {this.state.Movie1.length}</h3> */}
             <h3>this Number of of movies is {filtered.length}</h3>
     
+        {/* <MoviesTable/>    
+
         <table className="table">
             <thead>
                 <tr>
@@ -111,9 +113,16 @@ this.setState({ Movie1: getMovies(), genres });
                                 </tr>
                             ))}
             </tbody>
-        </table>
+        </table> */}
         {/* <Pagination itemcount={count} pageSize={pageSize} currentPage ={currentPage} onPagechange={this.handlePage_change}/> */}
-                
+
+        <MoviesTable
+            movie1={Movie1}
+            onDelete={this.handleDelete}
+            onLike={this.handleclick}
+          />
+
+
         <Pagination itemcount={filtered.length} pageSize={pageSize} currentPage ={currentPage} onPagechange={this.handlePage_change}/>
                 
                 </div>   

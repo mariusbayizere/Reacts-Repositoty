@@ -11,7 +11,7 @@ const Pagination = (props) => {
     const page = _.range(1, pagecount + 1)
     return <nav>
         <ul className="pagination">
-            {page.map(pages =>  <li key={pages} className={currentPage === pages ? "page-item active" : "page-item"}><a className="page-link" onClick={() => onPagechange(pages)}>{pages}</a></li>)}
+            {page.map(pages => <li key={pages} className={currentPage === pages ? "page-item active" : "page-item"}><a className="page-link" onClick={() => onPagechange(pages)}>{pages}</a></li>)}
            
         </ul>
     </nav>;
