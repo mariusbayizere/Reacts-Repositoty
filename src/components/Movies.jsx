@@ -5,7 +5,7 @@ import Liked from './like';
 import Pagination from './Pagination'
 import ListGroup from './ListGroup'
 import { paginate } from '../utils/pagination';
-import { getGenres, genres } from '../services/fakeGenreService';
+import { getGenres } from '../services/fakeGenreService';
 // import Movie from './Movies';
 class Movie extends Component {
     state = { 
@@ -21,7 +21,7 @@ class Movie extends Component {
      handleGenreselect = genre =>{
         // console.log(`The Genre is : ${genre}`);
         console.log(genre);
-        this.setState({selectedGenre : genre})
+        this.setState({selectedGenre : genre, currentPage: 1})
      }
      
      handleDelete = (moveis) => {
@@ -38,9 +38,12 @@ class Movie extends Component {
     };
     
     componentDidMount(){
-        // const genres = [{name : 'All Genres',  ...getGenres()}]
-        this.setState({Movie1: getMovies(), genres: getGenres()})
+      
         // this.setState({Movie1: getMovies(), genres: getGenres()})
+     
+const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
+this.setState({ Movie1: getMovies(), genres });
+
     }
     handlePage_change = data =>{
         console.log(`this event is called with Parameter${data}`);
@@ -55,7 +58,7 @@ class Movie extends Component {
         const {pageSize, currentPage, selectedGenre , Movie1 : allmovies} = this.state;
 
 
-        const filtered = selectedGenre ? allmovies.filter(m => m.genre._id === selectedGenre._id) : allmovies;
+        const filtered = selectedGenre && selectedGenre._id  ? allmovies.filter(m => m.genre._id === selectedGenre._id) : allmovies;
 
         // const filtered = selectGendre ? allmovies.filter(m => m.genre._id === selectGendre._id) : allmovies;
 

@@ -18,3 +18,7 @@ code {
 .list-group{
   cursor: pointer;
 }
+
+.pagination{
+  cursor: pointer;
+}
