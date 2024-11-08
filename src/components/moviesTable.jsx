@@ -1,6 +1,6 @@
 import Liked from './like';
 import React, { Component } from 'react';
-
+import TableHeader from './TableHeader';
 
 class MoviesTable extends Component {
 
@@ -17,17 +17,29 @@ raisesort = (Path) =>{
     this.props.onSort(sortColumn)
 }
 
+columns = [
+    {Path : 'title', label: 'Title'},
+    {Path : 'gengre.name', label: 'Genre'},
+    {Path : 'numberInStock', label: 'Stock'},
+    {Path : 'dailyRentalRate', label: 'Rate'},
+    {key: "like"},
+    {key: "delete"}
 
+
+]
 
     render( ) {
-        const { movie1, onDelete, onLike} = this.props;
+        const { movie1, onDelete, onLike, sortColumn, onSort} = this.props;
        
        return (
 
 
 
        <table className="table">
-      <thead>
+
+        <TableHeader columns={this.columns} sortColumn={sortColumn} onSort={onSort}/>
+
+      {/* <thead>
         <tr>
           <th onClick={() => this.raisesort('title')}>Title</th>
           <th onClick={() => this.raisesort('genre.name')}>Genre</th>
@@ -36,7 +48,7 @@ raisesort = (Path) =>{
           <th>Liked</th>
           <th>Action</th>
         </tr>
-      </thead>
+      </thead> */}
       <tbody>
         {movie1.map((mov) => (
           <tr key={mov._id}>
