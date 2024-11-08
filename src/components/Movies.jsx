@@ -26,7 +26,17 @@ class Movie extends Component {
 
      handlesort = (Path) => {
         //  console.log(Path)
-        this.setState({sortColumn : {Path, order: 'asc'}})
+
+        const sortColumn = {...this.state.sortColumn};
+        if(sortColumn.Path === Path){
+            sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        }
+        else{
+            sortColumn.Path = Path;
+            sortColumn.order = 'asc';
+        }
+        // this.setState({sortColumn : {Path, order: 'asc'}})
+        this.setState({ sortColumn })
      }
 
      
@@ -135,8 +145,6 @@ this.setState({ Movie1: getMovies(), genres });
             onLike={this.handleclick}
             onSort={this.handlesort}
           />
-
-
         <Pagination itemcount={filtered.length} pageSize={pageSize} currentPage ={currentPage} onPagechange={this.handlePage_change}/>
                 
                 </div>   
