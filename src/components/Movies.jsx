@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
-
-
+import _ from 'lodash'
 import Pagination from './Pagination'
 import MoviesTable from './moviesTable'
 import ListGroup from './ListGroup'
@@ -14,7 +13,8 @@ class Movie extends Component {
         pageSize: 4,
         genres: [],
         Movie1: [],
-        selectedGenre: null
+        selectedGenre: null,
+        sortColumn : {Path: 'title', order: 'asc'}
 
      } 
 
@@ -23,6 +23,12 @@ class Movie extends Component {
         console.log(genre);
         this.setState({selectedGenre : genre, currentPage: 1})
      }
+
+     handlesort = (Path) => {
+        //  console.log(Path)
+        this.setState({sortColumn : {Path, order: 'asc'}})
+     }
+
      
      handleDelete = (moveis) => {
          const Movie1 = this.state.Movie1.filter(data => data._id !== moveis._id)
@@ -55,16 +61,23 @@ this.setState({ Movie1: getMovies(), genres });
 
 
 
-        const {pageSize, currentPage, selectedGenre , Movie1 : allmovies} = this.state;
+
+
+
+        const {pageSize, sortColumn,currentPage, selectedGenre , Movie1 : allmovies} = this.state;
 
 
         const filtered = selectedGenre && selectedGenre._id  ? allmovies.filter(m => m.genre._id === selectedGenre._id) : allmovies;
 
+        const sort = _.orderBy(filtered, [sortColumn.Path], [sortColumn.order])
+        
         // const filtered = selectGendre ? allmovies.filter(m => m.genre._id === selectGendre._id) : allmovies;
 
         // const Movie1 = paginate(allmovies, currentPage, pageSize)
 
-        const Movie1 = paginate(filtered, currentPage, pageSize)
+        // const Movie1 = paginate(filtered, currentPage, pageSize)
+
+        const Movie1 = paginate(sort, currentPage, pageSize)
 
 
         if (this.state.Movie1.length === 0)
@@ -120,6 +133,7 @@ this.setState({ Movie1: getMovies(), genres });
             movie1={Movie1}
             onDelete={this.handleDelete}
             onLike={this.handleclick}
+            onSort={this.handlesort}
           />
 
 
