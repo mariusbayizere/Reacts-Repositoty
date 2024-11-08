@@ -7,7 +7,7 @@ import Movie from './components/Movies';
 function App() {
   return (
       <main className='container'>
-        <h1>Hey, This bayizere Marius</h1>
+        <h1>Get Whole information of Movies and Genre</h1>
         <Movie/>
       </main>
   );
